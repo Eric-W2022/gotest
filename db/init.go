@@ -36,17 +36,17 @@ func Init() error {
 		fmt.Println(err)
 	}
 	// 本地测试
-	user := viper.GetString("mysql.user")
-	pwd := viper.GetString("mysql.password")
-	addr := viper.GetString("mysql.address")
-	dataBase := viper.GetString("mysql.database")
+	//user := viper.GetString("mysql.user")
+	//pwd := viper.GetString("mysql.password")
+	//addr := viper.GetString("mysql.address")
+	//dataBase := viper.GetString("mysql.database")
 
 	source := "%s:%s@tcp(%s)/%s?readTimeout=1500ms&writeTimeout=1500ms&charset=utf8&loc=Local&&parseTime=true"
 	// 服务端
-	//user := os.Getenv("MYSQL_USERNAME")
-	//pwd := os.Getenv("MYSQL_PASSWORD")
-	//addr := os.Getenv("MYSQL_ADDRESS")
-	//dataBase := os.Getenv("MYSQL_DATABASE")
+	user := os.Getenv("MYSQL_USERNAME")
+	pwd := os.Getenv("MYSQL_PASSWORD")
+	addr := os.Getenv("MYSQL_ADDRESS")
+	dataBase := os.Getenv("MYSQL_DATABASE")
 
 	if dataBase == "" {
 		dataBase = "golang_demo"
