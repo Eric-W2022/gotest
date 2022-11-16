@@ -3,14 +3,12 @@ package service
 import (
 	"encoding/json"
 	"fmt"
+	"gorm.io/gorm"
 	"io/ioutil"
 	"net/http"
 	"time"
-
 	"wxcloudrun-golang/db/dao"
 	"wxcloudrun-golang/db/model"
-
-	"gorm.io/gorm"
 )
 
 // JsonResult 返回结构
@@ -111,7 +109,7 @@ func upsertCounter(r *http.Request) (int32, error) {
 		CreatedAt: createdAt,
 		UpdatedAt: time.Now(),
 	}
-	err = dao.Imp.UpsertCounter(counter)
+	err = dao.CounterImp.UpsertCounter(counter)
 	if err != nil {
 		return 0, err
 	}
@@ -119,12 +117,12 @@ func upsertCounter(r *http.Request) (int32, error) {
 }
 
 func clearCounter() error {
-	return dao.Imp.ClearCounter(1)
+	return dao.CounterImp.ClearCounter(1)
 }
 
 // getCurrentCounter 查询当前计数器
 func getCurrentCounter() (*model.CounterModel, error) {
-	counter, err := dao.Imp.GetCounter(1)
+	counter, err := dao.CounterImp.GetCounter(1)
 	if err != nil {
 		return nil, err
 	}

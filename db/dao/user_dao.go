@@ -5,24 +5,44 @@ import (
 	"wxcloudrun-golang/db/model"
 )
 
-const userTable = "users"
+const userTable = "Users"
+
+// UserInterface 计数器数据模型接口
+type UserInterface interface {
+	CreateUser(user *model.UserModel) error
+	UpsertUser(user *model.UserModel) error
+	DeleteUser(id int32) error
+	GetUser(id int32) (*model.UserModel, error)
+}
+
+// UserInterfaceImp 计数器数据模型实现
+type UserInterfaceImp struct{}
+
+// UserImp 实现实例
+var UserImp UserInterface = &UserInterfaceImp{}
 
 // CreateUser 添加用户
-func (imp *CounterInterfaceImp) CreateUser(userModel *model.UserModel) error {
+func (imp *UserInterfaceImp) CreateUser(userModel *model.UserModel) error {
 	cli := db.Get()
 	return cli.Table(userTable).Create(userModel).Error
 }
 
 // UpsertUser 更新/写入user
-func (imp *CounterInterfaceImp) UpsertUser(counter *model.CounterModel) error {
+func (imp *UserInterfaceImp) UpsertUser(counter *model.UserModel) error {
 	cli := db.Get()
 	return cli.Table(userTable).Save(counter).Error
 }
 
+// DeleteUser 更新/写入user
+func (imp *UserInterfaceImp) DeleteUser(id int32) error {
+	cli := db.Get()
+	return cli.Table(userTable).Delete(id).Error
+}
+
 // GetUser 查询Counter
-func (imp *CounterInterfaceImp) GetUser(id int32) (*model.CounterModel, error) {
+func (imp *UserInterfaceImp) GetUser(id int32) (*model.UserModel, error) {
 	var err error
-	var counter = new(model.CounterModel)
+	var counter = new(model.UserModel)
 
 	cli := db.Get()
 	err = cli.Table(userTable).Where("id = ?", id).First(counter).Error
