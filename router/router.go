@@ -24,9 +24,9 @@ func Router() *gin.Engine {
 		{
 			// 增删改查
 			users.POST("", service.CreateUser)
-			users.DELETE(":id", service.GetUserList)
-			users.PATCH(":id", service.GetUserList)
-			users.GET(":id", service.GetUserList)
+			users.DELETE(":id", service.DeleteUser)
+			users.PATCH(":id", service.UpdateUser)
+			users.GET(":id", service.GetUser)
 
 			// 获取列表
 			users.GET("", service.GetUserList)

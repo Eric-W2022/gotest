@@ -11,4 +11,5 @@ type UserModel struct {
 	LoginTime time.Time `gorm:"column:login_time" json:"login_time"`
 	CreatedAt time.Time `gorm:"column:createdAt" json:"createdAt"`
 	UpdatedAt time.Time `gorm:"column:updatedAt" json:"updatedAt"`
+	DeletedAt time.Time `gorm:"column:deletedAt" json:"deletedAt"`
 }
